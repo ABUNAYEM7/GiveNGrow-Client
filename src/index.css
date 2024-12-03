@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --primary: #E07A5F;
+  --secondary: #A7C4BC;
+  --bgColor-light: #F1E8D4;
+  --textColor-light: #E07A5F;
+  --btnColor-light: #D04C3D;
+  --bgColor-dark: #2E2E2E; /* Dark background for dark mode */
+  --textColor-dark: #F1E8D4; /* Light text for dark mode */
+  --btnColor-dark: #D04C3D; /* Button color for dark mode */
+}
+
+/* Default Light Theme */
+body {
+  background-color: var(--bgColor-light);
+  color: var(--textColor-light);
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Button Style */
+button {
+  background-color: var(--btnColor-light);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--primary);
+}
+
+/* Dark Theme Styles */
+[data-theme="dark"] {
+  background-color: var(--bgColor-dark);
+  color: var(--textColor-dark);
+}
+
+[data-theme="dark"] button {
+  background-color: var(--btnColor-dark);
+}
+
+[data-theme="dark"] button:hover {
+  background-color: var(--primary);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
