@@ -7,6 +7,9 @@ import MyDonation from "../Pages/MyDonation";
 import UserRegistration from "../Pages/UserRegistration";
 import SignIn from "../Pages/SignIn";
 import Register from "../Pages/Register";
+import AllCampaign from '../Pages/AllCampaign'
+import AllCampaignCards from "../Pages/AllCampaignCards";
+import CampaignDetails from "../Pages/CampaignDetails";
 
 
 const AppRoutes = () => {
@@ -20,9 +23,17 @@ const AppRoutes = () => {
         <Route path="MyDonation" element={<MyDonation/>}></Route>
 
         <Route path="UserRegistration" element={<UserRegistration/>}>
+
         <Route path="/UserRegistration" element={<SignIn/>}/>
         <Route path="/UserRegistration/Register" element={<Register/>}/>
         </Route>
+
+        <Route path="AllCampaign" element={<AllCampaign/>}>
+          <Route path="/AllCampaign" element={<AllCampaignCards/>}/>
+        </Route>
+
+        <Route path="/CampaignDetails/:id" element={<CampaignDetails/>}/>
+
         </Route>
     </Routes>
   )
