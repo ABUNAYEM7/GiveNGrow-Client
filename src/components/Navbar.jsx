@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
 import ThemeToggle from "./ThemeToggle";
 import logo from "../assets/logo.PNG";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { FaUser } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, userLogOut } = useContext(AuthContext);
+  const [isTooltipVisible, setTooltipVisible] = useState(false);
+  
   const links = (
     <>
       <li>
@@ -19,10 +25,34 @@ const Navbar = () => {
         <NavLink to={"MyDonation"}>My Donations</NavLink>
       </li>
       <li>
-      <NavLink to={'AllCampaign'}>All Campaign</NavLink>
+        <NavLink to={"AllCampaign"}>All Campaign</NavLink>
       </li>
     </>
   );
+
+  const logOutHandler = () => {
+    userLogOut()
+      .then(() => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "LogOut successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleMouseEnter = () => {
+    setTooltipVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      setTooltipVisible(false); 
+    }, 500); 
+  };
 
   return (
     <div className="navbar px-4">
@@ -52,7 +82,7 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to={"/"}>
-          <img className="w-16 h-16 rounded-full" src={logo} alt="" />
+          <img className="w-16 h-16 rounded-full hidden sm:block" src={logo} alt="" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -60,16 +90,64 @@ const Navbar = () => {
           {links}
         </ul>
       </div>
-      <div className="navbar-end space-x-2">
+      <div className="navbar-end space-x-4">
         <ThemeToggle />
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "btn bg-[#2b3440] text-primary" : "btn "
-          }
-          to={"UserRegistration"}
-        >
-          SignIn
-        </NavLink>
+
+        {user ? (
+          <div className="relative" 
+               onMouseEnter={handleMouseEnter} 
+               onMouseLeave={handleMouseLeave}>
+            <button className="rounded-full ring-2 ring-primary">
+              {user?.photoURL ? (
+                <img
+                  className="w-14 h-14 rounded-full ring-2 ring-primary"
+                  src={user.photoURL}
+                  alt="User"
+                />
+              ) : (
+                <FaUser size={20} />
+              )}
+            </button>
+
+            {isTooltipVisible && (
+              <div
+                className="absolute top-16 right-10 bg-base-100 text-primary p-2 rounded-lg shadow-lg z-20 min-w-40"
+                style={{
+                  display: isTooltipVisible ? "block" : "none",
+                }}
+              >
+                <h3 className="text-xs font-medium ">
+                  User Name : {user.displayName}
+                </h3>
+                <button
+                  onClick={logOutHandler}
+                  className="btn bg-primary text-white hover:text-primary mt-2 border-none"
+                >
+                  Log Out
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "btn bg-[#2b3440] text-primary" : "btn "
+              }
+              to={"SignIn"}
+            >
+              SignIn
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "btn bg-[#2b3440] text-primary" : "btn "
+              }
+              to={"Register"}
+            >
+              Register
+            </NavLink>
+          </div>
+        )}
       </div>
     </div>
   );

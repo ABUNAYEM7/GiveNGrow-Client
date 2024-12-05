@@ -1,18 +1,19 @@
 import { Link } from "react-router";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { TypeAnimation } from "react-type-animation";
-import { useContext, useState,useNavigate } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from 'sweetalert2'
+import { useNavigate } from "react-router";
 
 const Register = () => {
   const [show,setShow] = useState(false)
   const [error,setError] = useState('')
-  const navigate =useNavigate()
+  const navigate = useNavigate()
 
-  const {registerUser} = useContext(AuthContext)
+  const {registerUser,updateUserProfile,signInWithGoogle} = useContext(AuthContext)
 
-  const submitHandler =(e)=>{
+  const submitHandler = (e)=>{
     e.preventDefault()
     setError('')
     const form = e.target;
@@ -22,14 +23,14 @@ const Register = () => {
     const pass = form.pass.value;
 
     const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-
     if (!regex.test(pass)) {
       setError("Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long.");
       return;
     }
 
+
     registerUser(email,pass)
-    .then(user=>{
+    .then((user)=>{
       if(user){
         form.reset()
         Swal.fire({
@@ -38,14 +39,34 @@ const Register = () => {
           title: "Registration successful",
           showConfirmButton: false,
           timer: 1500,
-          navigate('/')
-        });
+        })
+        const updatedData ={
+          displayName :name,
+          photoURL : photo,
+        }
+        updateUserProfile(updatedData)
+        navigate('/')
+      }
+    })    
+    .catch(err=>setError(err.message.split('/')[1].split('/')[0] || err.code))
+  }
+        
+  const googleClickHandler =()=>{
+    signInWithGoogle()
+    .then(user=>{
+      if(user){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "LogIn successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        navigate('/')
       }
     })
     .catch(err=>setError(err.message || err.code))
-    
   }
-
 
   return (
     <div className="hero flex items-center justify-center  min-h-[510px]">
@@ -137,12 +158,16 @@ const Register = () => {
             </label>
             }
           </div>
-          <div className="form-control mt-6">
-            <button className="btn bg-primary text-white hover:text-primary">Login</button>
+          <div className="form-control mt-6 space-y-5">
+            <button className="btn bg-primary text-white hover:text-primary">Register</button>
+            <button 
+            onClick={googleClickHandler}
+            type="button"
+            className="btn bg-secondary text-white hover:text-secondary">LogIn With Google</button>
           </div>
           <h3 className="text-lg font-medium my-3 text-center">Don't Have Any Account ? <Link 
           className="text-primary font-bold" 
-          to={'/UserRegistration'}>LogIn</Link></h3>
+          to={'/SignIn'}>LogIn</Link></h3>
         </form>
       </div>
     </div>

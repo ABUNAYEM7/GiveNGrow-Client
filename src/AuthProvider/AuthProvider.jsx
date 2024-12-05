@@ -26,14 +26,20 @@ const AuthProvider = ({children}) => {
     }
  
     const updateUserProfile =(updatedData)=>{
-        setLoading(true)
-        return updateProfile(Auth,updatedData)
+        setLoading(false)
+        if(Auth.currentUser){
+            return updateProfile(Auth.currentUser,updatedData)
+        }else{
+            setLoading(false)
+            console.log('No user Login')
+        }
     }
 
     const userLogOut =async ()=>{
         setLoading(true)
         try{
             await signOut(Auth)
+            setUser(null)
         }catch(err){
             throw Error(err)
         }finally{
@@ -42,11 +48,12 @@ const AuthProvider = ({children}) => {
     }
 
     useEffect(()=>{
-        onAuthStateChanged(Auth,currentUser=>{
+        const unsubscribe = onAuthStateChanged(Auth,currentUser=>{
             setLoading(false)
             setUser(currentUser)
             console.log(currentUser)
         })
+        return ()=> unsubscribe()
     },[user])
 
 
