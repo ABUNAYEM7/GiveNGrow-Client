@@ -6,7 +6,7 @@ const Card = ({ campaign }) => {
 
 
 
-  const { _id, title, description, image, deadline, raisedAmount, goal } =
+  const { _id, title, description, image, deadline, raisedAmount, goal,campaignType } =
     campaign;
 
 
@@ -40,13 +40,19 @@ const Card = ({ campaign }) => {
         />
       </figure>
       <div className="card-body p-4">
-        <div
+       <div className="space-x-2">
+       <div
           className={`badge badge-secondary ${
             !active && "bg-primary border-none"
           }`}
         >
           {active ? "Active" : "Complete"}
         </div>
+        <div className={`badge bg-primary text-white`}
+        >
+          {campaignType}
+        </div>
+       </div>
         <h2 className="card-title text-primary">{title}</h2>
         <p className="text-base font-medium">{description}</p>
         <p className="text-base font-medium">

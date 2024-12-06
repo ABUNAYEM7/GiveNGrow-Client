@@ -9,6 +9,7 @@ import Register from "../Pages/Register";
 import AllCampaign from '../Pages/AllCampaign'
 import AllCampaignCards from "../Pages/AllCampaignCards";
 import CampaignDetails from "../Pages/CampaignDetails";
+import Donate from "../Pages/Donate";
 
 
 const AppRoutes = () => {
@@ -29,6 +30,7 @@ const AppRoutes = () => {
         </Route>
 
         <Route path="/CampaignDetails/:id" element={<CampaignDetails/>}/>
+        <Route path="/CampaignDetails/:id/Donate" element={<Donate/>}/>
 
         </Route>
     </Routes>

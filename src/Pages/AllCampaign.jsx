@@ -11,7 +11,7 @@ const AllCampaign = () => {
       subtitle={'This title captures the collective impact of your campaigns, highlighting community support, innovation, and positive change'}
       />
       </div>
-      <div className='my-6 p-4 border-2'>
+      <div className='my-6 p-4'>
         <Outlet/>
       </div>
     </div>

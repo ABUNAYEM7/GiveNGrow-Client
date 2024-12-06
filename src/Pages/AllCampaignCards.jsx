@@ -7,9 +7,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 const AllCampaignCards = () => {
   const [allCampaign, setAllCampaign] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch("http://localhost:5000/AllCampaign")
@@ -31,15 +33,15 @@ const AllCampaignCards = () => {
     }
   }
 
-  const risingHandler = ()=>{
+  const minDonationHandler = ()=>{
     const sortedByRising = [...allCampaign].sort((a,b)=>{
-        return b.raisedAmount - a.raisedAmount
+        return b.minDonation - a.minDonation
     })
     setAllCampaign(sortedByRising)
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Sorted By Rising Amount",
+      title: "Sorted By Minimum Donation",
       showConfirmButton: false,
       timer: 1500
     });
@@ -49,6 +51,7 @@ const AllCampaignCards = () => {
     const sortByTargetAmount = [...allCampaign].sort((a,b)=>{
       return a.goal - b.goal;
   })
+
   setAllCampaign(sortByTargetAmount)
   Swal.fire({
     position: "center",
@@ -59,23 +62,15 @@ const AllCampaignCards = () => {
   });
   }
 
-  const donateHandler =(deadline)=>{
-    const status = getStatus(deadline)
-    if(status === 'Active'){
-      console.log('Your Donation on process')
-    }else if(status === 'Expired'){
-      Swal.fire({
-        title: "Sorry",
-        text: "The Campaign Already Expired",
-        icon: "error"
-      });
-    }
+  const seeMoreHandler =(id)=>{
+      navigate(`/CampaignDetails/${id}`)
   }
 
   const columns = [
     { id: "No:", label: "No:", minWidth: 50 },
     { id: "title", label: "Title", minWidth: 100 },
     { id: "deadline", label: "Status", minWidth: 100 },
+    { id: "minDonation", label: "Minimum Donation", minWidth: 50 },
     { id: "raisedAmount", label: "Raised Amount", minWidth: 50 },
     { id: "goal", label: "Target Amount", minWidth: 50 },
     { id: "Contribute", label: "Contribution", minWidth: 50 },
@@ -88,8 +83,8 @@ const AllCampaignCards = () => {
        <h3 className="text-3xl font-bold text-primary">Sort it, simplify it, <span className="text-secondary">find it faster!</span></h3>
        <div className="flex flex-row gap-5">
         <button 
-        onClick={risingHandler}
-        className="btn bg-secondary text-white hover:text-secondary">Raising Amount</button>
+        onClick={minDonationHandler}
+        className="btn bg-secondary text-white hover:text-secondary">Minimum Donation</button>
         <button 
         onClick={targetHandler}
         className="btn bg-primary text-white hover:text-primary">Target Amount</button>
@@ -131,9 +126,9 @@ const AllCampaignCards = () => {
                         align={column.align || "left"}
                       >
                         <button 
-                        onClick={()=>donateHandler(row.deadline)}
+                        onClick={()=>seeMoreHandler(row._id)}
                         className="btn bg-primary text-white  border-none hover:text-primary">
-                          Donate Now
+                          See More
                         </button>
                       </TableCell>
                         )

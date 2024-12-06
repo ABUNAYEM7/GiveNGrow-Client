@@ -2,7 +2,7 @@ import React from 'react'
 
 const Info = ({title,subtitle}) => {
   return (
-    <div className='flex items-center justify-center'>
+    <div className='flex items-center justify-center my-12'>
       <div className='text-center space-y-4'>
         <h3 className='text-4xl font-bold text-primary'>
             {title}

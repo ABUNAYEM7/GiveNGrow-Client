@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth"
 import { createContext, useEffect, useState } from "react"
 import Auth from "../firebase/firebaseConfig"
+import Swal from "sweetalert2"
 
 export const AuthContext = createContext()
 
@@ -25,14 +26,20 @@ const AuthProvider = ({children}) => {
         return signInWithPopup(Auth,googleProvider)
     }
  
-    const updateUserProfile =(updatedData)=>{
-        setLoading(false)
-        if(Auth.currentUser){
-            return updateProfile(Auth.currentUser,updatedData)
-        }else{
-            setLoading(false)
-            console.log('No user Login')
-        }
+    const updateUserProfile =async (updatedData)=>{
+
+       try{
+        await updateProfile(Auth.currentUser,updatedData)
+        await Auth.currentUser.reload()
+        setUser({...Auth.currentUser})
+       }catch{
+        Swal.fire({
+            title: `${err.message || err.code}`,
+            text: "Thanks For Being With Us",
+            icon: "warning",
+            confirmButtonText: "close",
+          })
+       }
     }
 
     const userLogOut =async ()=>{
@@ -54,7 +61,7 @@ const AuthProvider = ({children}) => {
             console.log(currentUser)
         })
         return ()=> unsubscribe()
-    },[user])
+    },[])
 
 
     const authInfo={

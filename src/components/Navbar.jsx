@@ -51,7 +51,7 @@ const Navbar = () => {
   const handleMouseLeave = () => {
     setTimeout(() => {
       setTooltipVisible(false); 
-    }, 500); 
+    }, 2000); 
   };
 
   return (
@@ -105,19 +105,21 @@ const Navbar = () => {
                   alt="User"
                 />
               ) : (
+               <h3 className="p-4">
                 <FaUser size={20} />
+               </h3>
               )}
             </button>
 
             {isTooltipVisible && (
               <div
-                className="absolute top-16 right-10 bg-base-100 text-primary p-2 rounded-lg shadow-lg z-20 min-w-40"
+                className="absolute top-16 right-5 bg-base-100 text-primary p-2 rounded-lg shadow-lg z-20 min-w-40"
                 style={{
                   display: isTooltipVisible ? "block" : "none",
                 }}
               >
                 <h3 className="text-xs font-medium ">
-                  User Name : {user.displayName}
+                  User Name : {user?.displayName}
                 </h3>
                 <button
                   onClick={logOutHandler}

@@ -21,6 +21,7 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const pass = form.pass.value;
+    
 
     const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!regex.test(pass)) {
@@ -28,11 +29,9 @@ const Register = () => {
       return;
     }
 
-
     registerUser(email,pass)
     .then((user)=>{
       if(user){
-        form.reset()
         Swal.fire({
           position: "center",
           icon: "success",
@@ -45,6 +44,7 @@ const Register = () => {
           photoURL : photo,
         }
         updateUserProfile(updatedData)
+        form.reset()
         navigate('/')
       }
     })    

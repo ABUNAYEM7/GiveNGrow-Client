@@ -8,7 +8,7 @@ const MainLayout = () => {
       <header  className='w-full'>
         <Navbar/>
       </header>
-      <main className='max-w-screen-xl min-h-[550px] mx-auto border-2'>
+      <main className='max-w-screen-xl min-h-[550px] mx-auto'>
         <Outlet/>
       </main>
       <footer className='w-full border-2'> 
