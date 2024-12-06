@@ -8,7 +8,7 @@ const AllCampaign = () => {
       <div>
       <Info 
       title={'Empowering Communities, Innovating Futures'}
-      subtitle={'This title captures the collective impact of your campaigns, highlighting community support, innovation, and positive change'}
+      subtitle={'Join hands to support meaningful initiatives and shape a brighter tomorrow, one campaign at a time.'}
       />
       </div>
       <div className='my-6 p-4'>

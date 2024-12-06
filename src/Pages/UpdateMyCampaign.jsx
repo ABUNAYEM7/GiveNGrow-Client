@@ -1,12 +1,35 @@
-import React, { useContext } from "react";
-import Info from "../components/Info";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+import React, { useContext, useEffect, useState } from "react";
+import { Vortex } from "react-loader-spinner";
+import { useParams } from "react-router";
 import Swal from "sweetalert2";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 import CustomSelect from "../components/CustomSelect";
 
-const AddNewCampaign = () => {
-  const { user,selectValue,setSelectValue } = useContext(AuthContext);
+const UpdateMyCampaign = () => {
+  const [loading, setLoading] = useState(true);
+  const [campaign, setCampaign] = useState({});
+  const { id } = useParams();
+  const { selectValue, setSelectValue } = useContext(AuthContext);
 
+//   data-fetching
+  useEffect(() => {
+    fetch(`http://localhost:5000/AllCampaign/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+            const campaignData = data[0];  
+            setCampaign(campaignData);
+            setSelectValue({
+              value: campaignData.campaignType,
+              label: campaignData.campaignType,
+            });
+    
+            setLoading(false)
+        }
+      });
+  }, [id, setSelectValue]);
+
+  
   const submitHandler = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -20,28 +43,30 @@ const AddNewCampaign = () => {
     const deadline = form.deadline.value;
     const goal = form.goal.value;
 
-    if(!selectValue){
+    if (!selectValue) {
       return Swal.fire({
-        title: 'Invalid Campaign Type',
-        text: "Please Selected Campaign Type",
+        title: `Invalid Campaign Type`,
+        text: "Please Select a Campaign Type",
         icon: "error",
-        confirmButtonText: "close",
+        confirmButtonText: "Close",
       });
     }
+
     const campaignType = selectValue?.value;
 
+    // Validate deadline
     let currentDate = new Date().toISOString().split("T")[0];
     const deadlineDate = new Date(deadline).toISOString().split("T")[0];
-
     if (currentDate > deadlineDate) {
       return Swal.fire({
         title: `Back Dated`,
         text: "Please Provide Valid Deadline",
         icon: "error",
-        confirmButtonText: "close",
+        confirmButtonText: "Close",
       });
     }
 
+    // Validate numeric inputs
     if (
       Number(raisedAmount) <= 0 ||
       Number(minDonation) <= 0 ||
@@ -60,7 +85,7 @@ const AddNewCampaign = () => {
         title: `Invalid Amount`,
         text: "Raising Amount should be less than Goal Amount",
         icon: "error",
-        confirmButtonText: "close",
+        confirmButtonText: "Close",
       });
     }
 
@@ -69,11 +94,11 @@ const AddNewCampaign = () => {
         title: `Invalid Amount`,
         text: "Minimum Donation should be less than Goal Amount",
         icon: "error",
-        confirmButtonText: "close",
+        confirmButtonText: "Close",
       });
     }
 
-    const campaignData = {
+    const updatedCampaign = {
       userName,
       email,
       title,
@@ -83,50 +108,26 @@ const AddNewCampaign = () => {
       raisedAmount,
       goal,
       minDonation,
-      campaignType
+      campaignType,
     };
 
-    fetch("http://localhost:5000/newCampaign", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(campaignData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          Swal.fire({
-            title: `Congratulations`,
-            text: "Campaign Created Successfully",
-            icon: "success",
-            confirmButtonText: "Thanks",
-          });
-          form.reset();
-          setSelectValue(null)
-        }
-      })
-      .catch((err) => {
-        Swal.fire({
-          title: `Sorry`,
-          text: err.message || err.code,
-          icon: "error",
-          confirmButtonText: "Thanks",
-        });
-      });
+    console.log(updatedCampaign)
   };
-
   return (
     <div>
-      {/* info-container */}
-      <div>
-        <Info
-          title={"Create Your Own Campaign"}
-          subtitle={
-            "Empower change by launching a meaningful initiative and making a lasting impact."
-          }
-        />
-      </div>
-      {/* form-container */}
-      <div>
+      {loading ? (
+        <div className="w-full min-h-28 flex items-center justify-center">
+          <Vortex
+            visible={true}
+            height="180"
+            width="180"
+            ariaLabel="vortex-loading"
+            wrapperStyle={{}}
+            wrapperClass="vortex-wrapper"
+            colors={["red", "green", "blue", "yellow", "orange", "purple"]}
+          />
+        </div>
+      ) : (
         <form
           onSubmit={submitHandler}
           className="card-body grid grid-cols-1 md:grid-cols-2 gap-5"
@@ -136,12 +137,10 @@ const AddNewCampaign = () => {
               <span className="label-text">User Name</span>
             </label>
             <input
-              defaultValue={user?.displayName}
+              defaultValue={campaign?.userName}
               name="userName"
               type="text"
-              placeholder="User Name"
               className="input input-bordered"
-              required
               readOnly
             />
           </div>
@@ -150,12 +149,10 @@ const AddNewCampaign = () => {
               <span className="label-text">Email</span>
             </label>
             <input
-              defaultValue={user?.email}
+              defaultValue={campaign.email}
               name="email"
               type="email"
-              placeholder="Email"
               className="input input-bordered"
-              required
               readOnly
             />
           </div>
@@ -164,11 +161,10 @@ const AddNewCampaign = () => {
               <span className="label-text">Banner Image</span>
             </label>
             <input
+              defaultValue={campaign.image}
               name="photo"
               type="text"
-              placeholder="Image URL"
               className="input input-bordered"
-              required
             />
           </div>
           <div className="form-control">
@@ -176,11 +172,10 @@ const AddNewCampaign = () => {
               <span className="label-text">Title</span>
             </label>
             <input
+              defaultValue={campaign.title}
               name="title"
               type="text"
-              placeholder="Title"
               className="input input-bordered"
-              required
             />
           </div>
           <div className="form-control">
@@ -188,26 +183,24 @@ const AddNewCampaign = () => {
               <span className="label-text">Description</span>
             </label>
             <input
+              defaultValue={campaign.description}
               name="description"
               type="text"
-              placeholder="Description"
               className="input input-bordered"
-              required
             />
           </div>
           <div className="form-control">
-            <CustomSelect/>
+            <CustomSelect />
           </div>
           <div className="form-control">
             <label className="label">
               <span className="label-text">Deadline</span>
             </label>
             <input
+              defaultValue={campaign.deadline}
               name="deadline"
               type="date"
-              placeholder="Deadline"
               className="input input-bordered"
-              required
             />
           </div>
           <div className="form-control">
@@ -215,11 +208,10 @@ const AddNewCampaign = () => {
               <span className="label-text">Minimum Donation</span>
             </label>
             <input
+              defaultValue={campaign.minDonation}
               name="minDonation"
               type="number"
-              placeholder="500"
               className="input input-bordered"
-              required
             />
           </div>
           <div className="form-control">
@@ -227,11 +219,10 @@ const AddNewCampaign = () => {
               <span className="label-text">Raising Amount</span>
             </label>
             <input
+              defaultValue={campaign.raisedAmount}
               name="raisedAmount"
               type="number"
-              placeholder="Amount"
               className="input input-bordered"
-              required
             />
           </div>
           <div className="form-control">
@@ -239,22 +230,21 @@ const AddNewCampaign = () => {
               <span className="label-text">Goal Amount</span>
             </label>
             <input
+              defaultValue={campaign.goal}
               name="goal"
               type="number"
-              placeholder="Goal"
               className="input input-bordered"
-              required
             />
           </div>
           <div className="form-control mt-6 md:col-span-2">
             <button className="btn text-white bg-primary hover:text-primary">
-              Create
+              Update
             </button>
           </div>
         </form>
-      </div>
+      )}
     </div>
   );
 };
 
-export default AddNewCampaign;
+export default UpdateMyCampaign;

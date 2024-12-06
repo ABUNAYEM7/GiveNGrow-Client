@@ -10,6 +10,7 @@ import AllCampaign from '../Pages/AllCampaign'
 import AllCampaignCards from "../Pages/AllCampaignCards";
 import CampaignDetails from "../Pages/CampaignDetails";
 import Donate from "../Pages/Donate";
+import UpdateMyCampaign from "../Pages/UpdateMyCampaign";
 
 
 const AppRoutes = () => {
@@ -25,8 +26,13 @@ const AppRoutes = () => {
         <Route path="SignIn" element={<SignIn/>}/>
         <Route path="Register" element={<Register/>}/>
 
+        {/* nested-Routes */}
         <Route path="AllCampaign" element={<AllCampaign/>}>
+
           <Route path="/AllCampaign" element={<AllCampaignCards/>}/>
+
+          <Route path="/AllCampaign/updateMyCampaign/:id" element={<UpdateMyCampaign/>}/>
+
         </Route>
 
         <Route path="/CampaignDetails/:id" element={<CampaignDetails/>}/>
