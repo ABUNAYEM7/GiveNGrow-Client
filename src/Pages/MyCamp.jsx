@@ -20,7 +20,7 @@ const MyCamp = () => {
     const email = user?.email
 
     useEffect(()=>{
-      fetch(`http://localhost:5000/myCampaign/${email}`)
+      fetch(`https://give-ngrow-server.vercel.app/myCampaign/${email}`)
       .then(res=>res.json())
       .then(data=>{
         if(data.length >0){
@@ -61,7 +61,7 @@ const MyCamp = () => {
         confirmButtonText: "Yes, delete it!"
       }).then((result) => {
         if (result.isConfirmed) {
-          fetch(`http://localhost:5000/deleteMyCampaign/${id}`,{
+          fetch(`https://give-ngrow-server.vercel.app/deleteMyCampaign/${id}`,{
             method : 'DELETE'
           })
           .then(res=>res.json())

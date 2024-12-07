@@ -88,7 +88,7 @@ const AddNewCampaign = () => {
       campaignType
     };
 
-    fetch("http://localhost:5000/newCampaign", {
+    fetch("https://give-ngrow-server.vercel.app/newCampaign", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(campaignData),

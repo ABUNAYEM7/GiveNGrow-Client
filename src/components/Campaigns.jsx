@@ -7,7 +7,7 @@ const Campaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/campaigns")
+    fetch("https://give-ngrow-server.vercel.app/campaigns")
       .then((res) => res.json())
       .then((data) => {
         setCampaigns(data)

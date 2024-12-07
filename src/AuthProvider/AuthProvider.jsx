@@ -59,7 +59,6 @@ const AuthProvider = ({children}) => {
         const unsubscribe = onAuthStateChanged(Auth,currentUser=>{
             setLoading(false)
             setUser(currentUser)
-            console.log(currentUser)
         })
         return ()=> unsubscribe()
     },[])

@@ -7,7 +7,7 @@ const CampaignDetails = () => {
     const navigate = useNavigate()
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/AllCampaign/${id}`)
+        fetch(`https://give-ngrow-server.vercel.app/AllCampaign/${id}`)
         .then(res=>res.json())
         .then(data=>setCampaign(data[0]))
     },[])

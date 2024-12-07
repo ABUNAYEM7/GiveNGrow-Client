@@ -38,10 +38,10 @@ const AppRoutes = () => {
 
         {/* nested-Routes */}
         <Route path="" element={
-          <PrivateRoute><AllCampaign/></PrivateRoute>
+          <AllCampaign/>
           }>
           <Route path="/AllCampaign" element={<AllCampaignCards/>}/>
-          <Route path="/AllCampaign/updateMyCampaign/:id" element={<UpdateMyCampaign/>}/>
+          <Route path="/AllCampaign/updateMyCampaign/:id" element={<PrivateRoute> <UpdateMyCampaign/> </PrivateRoute>}/>
 
         </Route>
 

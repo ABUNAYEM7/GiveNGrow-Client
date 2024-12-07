@@ -41,7 +41,15 @@ const Navbar = () => {
           timer: 1500,
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>{
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "LogOut failed please try again",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   const handleMouseEnter = () => {
@@ -90,7 +98,7 @@ const Navbar = () => {
           {links}
         </ul>
       </div>
-      <div className="navbar-end space-x-4">
+      <div className="navbar-end justify-around space-x-2 ">
         <ThemeToggle />
 
         {user ? (

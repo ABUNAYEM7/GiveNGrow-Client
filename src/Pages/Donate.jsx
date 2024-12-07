@@ -12,7 +12,7 @@ const Donate = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/AllCampaign/${id}`)
+    fetch(`https://give-ngrow-server.vercel.app/AllCampaign/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setCampaign(data[0]);
@@ -67,7 +67,7 @@ const Donate = () => {
 
     const donationData={name ,email,title,deadline,amount,goal}
 
-    fetch('http://localhost:5000/donation',{
+    fetch('https://give-ngrow-server.vercel.app/donation',{
         method :'POST',
         headers :{'content-type' :"application/json"},
         body :JSON.stringify(donationData)

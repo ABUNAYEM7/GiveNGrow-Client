@@ -10,7 +10,7 @@ const MyDonation = () => {
   const userEmail = user?.email;
 
   useEffect(()=>{
-    fetch(`http://localhost:5000/donation/${userEmail}`)
+    fetch(`https://give-ngrow-server.vercel.app/donation/${userEmail}`)
     .then(res=>res.json())
     .then(data=>{
       setDonation(data)

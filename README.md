@@ -49,7 +49,7 @@ In this section, we use an iframe to show a video where we explain how our plan 
 In this section, we display a marquee where all the campaigns have a shorter description, creating a visually appealing display.
 
 ## Live Link
-[Visit the live website](https://your-live-site-url.com)
+[Visit the live website](https://give-n-grow.web.app)
 
 ## GitHub Link
-[GitHub Repository](https://github.com/your-username/repository-name)
+[GitHub Repository](https://github.com/programming-hero-web-course2/b10-a10-client-side-ABUNAYEM7)

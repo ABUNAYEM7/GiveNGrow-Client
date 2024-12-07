@@ -11,7 +11,6 @@ const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { state } = useLocation();
-  console.log(state);
   const { registerUser, updateUserProfile, signInWithGoogle } =
     useContext(AuthContext);
 

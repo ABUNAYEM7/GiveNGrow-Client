@@ -14,7 +14,7 @@ const UpdateMyCampaign = () => {
 
 //   data-fetching
   useEffect(() => {
-    fetch(`http://localhost:5000/AllCampaign/${id}`)
+    fetch(`https://give-ngrow-server.vercel.app/AllCampaign/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data) {
@@ -112,14 +112,13 @@ const UpdateMyCampaign = () => {
       campaignType,
     };
 
-    fetch(`http://localhost:5000/updateMyCampaign/${id}`,{
+    fetch(`https://give-ngrow-server.vercel.app/updateMyCampaign/${id}`,{
       method :'PATCH',
       headers : {"content-type" : "application/json"},
       body :JSON.stringify(updatedCampaign)
     })
     .then(res=>res.json())
     .then(data => {
-      console.log(data)
       if(data.modifiedCount > 0){
         Swal.fire({
           position: "center",
@@ -173,7 +172,6 @@ const UpdateMyCampaign = () => {
             }
     })
     .catch(err=>{
-      console.log(err)
       Swal.fire({
         title: `Update Fail`,
         text: err.message || err.code,

@@ -5,7 +5,7 @@ const HelpFor = () => {
   const [campaign,setCampaign] = useState([])
 
 useEffect(()=>{
-  fetch('http://localhost:5000/AllCampaign')
+  fetch('https://give-ngrow-server.vercel.app/AllCampaign')
   .then(res=>res.json())
   .then(data=>setCampaign(data))
 },[])
