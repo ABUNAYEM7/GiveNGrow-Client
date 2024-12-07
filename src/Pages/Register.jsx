@@ -23,14 +23,23 @@ const Register = () => {
     const email = form.email.value;
     const pass = form.pass.value;
 
-    const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-    if (!regex.test(pass)) {
-      setError(
-        "Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long."
-      );
-      return;
+    if (!/[a-z]/.test(pass)) {
+      setError("Password must contain at least one lowercase letter.");
+      return false;
     }
-
+  
+    // Check for uppercase letter
+    if (!/[A-Z]/.test(pass)) {
+      setError("Password must contain at least one uppercase letter.");
+      return false;
+    }
+  
+    // Check for length (at least 6 characters)
+    if (pass.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return false;
+    }
+  
     registerUser(email, pass)
       .then((user) => {
         if (user) {
@@ -55,7 +64,7 @@ const Register = () => {
         }
       })
       .catch((err) =>
-        setError(err.message.split("/")[1].split("/")[0] || err.code)
+        setError(err.message.split("/")[1].split(")")[0] || err.code)
       );
   };
 

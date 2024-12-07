@@ -8,15 +8,20 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { Vortex } from "react-loader-spinner";
 
 const AllCampaignCards = () => {
   const [allCampaign, setAllCampaign] = useState([]);
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     fetch("https://give-ngrow-server.vercel.app/AllCampaign")
       .then((res) => res.json())
-      .then((data) => setAllCampaign(data));
+      .then((data) => {
+        setAllCampaign(data)
+        setLoading(false)
+      });
   }, []);
 
   const getStatus = (deadline)=>{
@@ -78,6 +83,19 @@ const AllCampaignCards = () => {
 
   return (
     <div >
+       {loading && (
+        <div className="w-full min-h-28 flex items-center justify-center">
+            <Vortex
+          visible={true}
+          height="180"
+          width="180"
+          ariaLabel="vortex-loading"
+          wrapperStyle={{}}
+          wrapperClass="vortex-wrapper"
+          colors={["red", "green", "blue", "yellow", "orange", "purple"]}
+        />
+        </div>
+      )}
        <div className="flex items-center justify-center my-6">
        <div className="flex flex-col items-center gap-5">
        <h3 className="text-3xl font-bold text-primary">Sort it, simplify it, <span className="text-secondary">find it faster!</span></h3>
