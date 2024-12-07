@@ -3,6 +3,7 @@ import Banner from '../components/Banner'
 import Campaigns from '../components/Campaigns'
 import Iframe from '../components/Iframe'
 import HelpFor from '../components/HelpFor'
+import Features from '../components/Features'
 
 
 const Home = () => {
@@ -20,6 +21,9 @@ const Home = () => {
       </div>
       <div>
         <HelpFor/>
+      </div>
+      <div>
+        <Features/>
       </div>
     </div>
   )

@@ -16,12 +16,16 @@ const AllCampaignCards = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    setLoading(true)
     fetch("https://give-ngrow-server.vercel.app/AllCampaign")
       .then((res) => res.json())
       .then((data) => {
         setAllCampaign(data)
         setLoading(false)
-      });
+      })
+      .catch((err)=>{
+        setLoading(false)
+      })
   }, []);
 
   const getStatus = (deadline)=>{
@@ -84,7 +88,7 @@ const AllCampaignCards = () => {
   return (
     <div >
        {loading && (
-        <div className="w-full min-h-28 flex items-center justify-center">
+         <div className="w-full min-h-28 flex items-center justify-center">
             <Vortex
           visible={true}
           height="180"
@@ -96,7 +100,10 @@ const AllCampaignCards = () => {
         />
         </div>
       )}
-       <div className="flex items-center justify-center my-6">
+       {
+        !loading &&(
+          <>
+          <div className="flex items-center justify-center my-6">
        <div className="flex flex-col items-center gap-5">
        <h3 className="text-3xl font-bold text-primary">Sort it, simplify it, <span className="text-secondary">find it faster!</span></h3>
        <div className="flex flex-row gap-5">
@@ -167,6 +174,9 @@ const AllCampaignCards = () => {
         </TableContainer>
       </Paper>
       </div>
+          </>
+        )
+       }
     </div>
   );
 };
