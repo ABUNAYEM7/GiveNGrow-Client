@@ -5,22 +5,12 @@ import { Vortex } from "react-loader-spinner";
 const HelpFor = () => {
   const [campaign, setCampaign] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // Add error state
 
   useEffect(() => {
     fetch("https://give-ngrow-server.vercel.app/AllCampaign")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
+      .then((res) =>res.json())
       .then((data) => {
         setCampaign(data);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch campaigns:", err);
-        setError("Failed to load campaigns. Please try again later.");
       })
       .finally(() => {
         setLoading(false); 
@@ -44,14 +34,6 @@ const HelpFor = () => {
     );
   }
 
-
-  if (error) {
-    return (
-      <div className="text-center py-12">
-        <h3 className="text-xl font-bold text-red-500">{error}</h3>
-      </div>
-    );
-  }
 
 
   if (campaign.length === 0) {
