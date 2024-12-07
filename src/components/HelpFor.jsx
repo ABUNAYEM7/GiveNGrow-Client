@@ -69,7 +69,7 @@ const HelpFor = () => {
       <h3 className="text-3xl font-bold text-primary text-center mb-12">
         Give & Grow Help For
       </h3>
-      <div className="w-full md:w-11/12 mx-auto">
+      <div>
         <Marquee pauseOnHover={true}>
           {campaign.map((item, index) => (
             <div

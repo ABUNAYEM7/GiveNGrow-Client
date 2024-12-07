@@ -38,7 +38,7 @@ This is a crowdfunding website where you can contribute to other people's projec
 7. **React Select**
 8. **React Type Animation**
 9. **React Slick**
-10. **React Tooltip**
+10. **React-awesome-reveal**
 
 ## Extra Sections
 
@@ -46,7 +46,10 @@ This is a crowdfunding website where you can contribute to other people's projec
 In this section, we use an iframe to show a video where we explain how our plan works.
 
 ### How Give & Grow Helps
-In this section, we display a marquee where all the campaigns have a shorter description, creating a visually appealing display.
+In this section, we display a marquee where all the campaigns have a shorter description, creating a visually appealing display in this section we use react-awesome-reveal animation package.
+
+### Our Features
+In this section, we display the process of our campaign and how much we are famous in the world and how trusted we are.
 
 ## Live Link
 [Visit the live website](https://give-n-grow.web.app)

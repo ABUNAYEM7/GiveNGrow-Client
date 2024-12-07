@@ -13,7 +13,7 @@ const Features = () => {
       <div className="grid md:grid-cols-3 gap-8">
         {features.map((feature, index) => (
           <Zoom key={index}>
-            <div className="p-6 bg-base-300 shadow-md rounded-lg text-center">
+            <div className="w-11/12 md:w-full mx-auto p-6 bg-base-300 shadow-md rounded-lg text-center">
               <h3 className="text-2xl font-bold text-secondary mb-4">{feature.title}</h3>
               <p className="text-gray-700">{feature.description}</p>
             </div>
