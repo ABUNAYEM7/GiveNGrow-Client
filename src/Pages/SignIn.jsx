@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { TypeAnimation } from "react-type-animation";
 import { AuthContext } from "../AuthProvider/AuthProvider";
@@ -9,6 +9,7 @@ const SignIn = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate()
   const { signInWithGoogle,userLogIn } = useContext(AuthContext);
+  const {state} = useLocation()
 
   const submitHandler =(e)=>{
     e.preventDefault()
@@ -27,7 +28,11 @@ const SignIn = () => {
           showConfirmButton: false,
           timer: 1500,
         })
-        navigate('/')
+        if(state){
+          navigate(state)
+        }else{
+          navigate('/')
+        }
       }
     }) 
     .catch(err=>{
@@ -54,7 +59,11 @@ const SignIn = () => {
             showConfirmButton: false,
             timer: 1500,
           });
-          navigate("/");
+          if (state) {
+            navigate(state)
+          } else {
+            navigate("/")
+          };
         }
       })
       .catch((err) => setError(err.message || err.code));
@@ -147,7 +156,7 @@ const SignIn = () => {
             </div>
             <h3 className="text-lg font-medium my-3 text-center">
               Don't Have Any Account ?
-              <Link to={"/Register"} className="text-primary font-bold">
+              <Link state={state} to={"/Register"} className="text-primary font-bold">
                 Register
               </Link>
             </h3>

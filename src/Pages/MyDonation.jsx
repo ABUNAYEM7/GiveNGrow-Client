@@ -19,11 +19,13 @@ const MyDonation = () => {
   },[userEmail])
 
 
-  {if(donation.length <= 0) return <h3 className='text-3xl font-bold text-primary text-center my-12'>No Transaction History</h3>}
+  if (!donation || donation.length <= 0) { 
+    return <h3 className='text-3xl font-bold text-primary text-center my-12'>No Transaction History</h3>;
+  }
 
   
   return (
-    <div>
+    <div className='my-12 p-4'>
       {loading && (
         <div 
         className="w-full min-h-28 flex items-center justify-center">
@@ -49,7 +51,7 @@ const MyDonation = () => {
           donation.map(element=>
             <div 
             key={element._id}
-            className="card md:flex-row justify-between bg-primary text-white w-11/12 mx-auto">
+            className="card md:flex-row justify-between bg-primary text-white w-full sm:w-11/12 md:w-9/12 mx-auto">
             <div className="card-body w-full md:w-1/2">
               <h2 className="card-title">Campaign Name : {element?.title}</h2>
               <p>Donated Amount : {element?.amount}</p>

@@ -3,8 +3,10 @@ import Info from "../components/Info";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import CustomSelect from "../components/CustomSelect";
+import { useNavigate } from "react-router";
 
 const AddNewCampaign = () => {
+  const navigate = useNavigate()
   const { user,selectValue,setSelectValue } = useContext(AuthContext);
 
   const submitHandler = (e) => {
@@ -102,6 +104,7 @@ const AddNewCampaign = () => {
           });
           form.reset();
           setSelectValue(null)
+          navigate('/MyCampaign')
         }
       })
       .catch((err) => {

@@ -11,34 +11,46 @@ import AllCampaignCards from "../Pages/AllCampaignCards";
 import CampaignDetails from "../Pages/CampaignDetails";
 import Donate from "../Pages/Donate";
 import UpdateMyCampaign from "../Pages/UpdateMyCampaign";
+import ErrorPage from "../Pages/ErrorPage";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
 const AppRoutes = () => {
   return (
     <Routes>
         <Route path="/" element ={<MainLayout/>}>
-
         <Route index element={<Home/>}></Route>
-        <Route path="MyCampaign" element={<MyCamp/>}></Route>
-        <Route path="AddCampaign" element={<AddNewCampaign/>}></Route>
-        <Route path="MyDonation" element={<MyDonation/>}></Route>
+
+        <Route path="MyCampaign" element={
+          <PrivateRoute><MyCamp/></PrivateRoute>}>
+          </Route>
+
+        <Route path="AddCampaign" element=
+        {<PrivateRoute><AddNewCampaign/></PrivateRoute>}>
+        </Route>
+
+        <Route path="MyDonation" element=
+        {<PrivateRoute><MyDonation/></PrivateRoute>}>
+        </Route>
 
         <Route path="SignIn" element={<SignIn/>}/>
         <Route path="Register" element={<Register/>}/>
 
         {/* nested-Routes */}
-        <Route path="AllCampaign" element={<AllCampaign/>}>
-
+        <Route path="" element={
+          <PrivateRoute><AllCampaign/></PrivateRoute>
+          }>
           <Route path="/AllCampaign" element={<AllCampaignCards/>}/>
-
           <Route path="/AllCampaign/updateMyCampaign/:id" element={<UpdateMyCampaign/>}/>
 
         </Route>
 
-        <Route path="/CampaignDetails/:id" element={<CampaignDetails/>}/>
-        <Route path="/CampaignDetails/:id/Donate" element={<Donate/>}/>
-
+        <Route path="/CampaignDetails/:id" element={
+          <PrivateRoute><CampaignDetails/></PrivateRoute>
+        }/>
+        <Route path="/CampaignDetails/:id/Donate" element={<PrivateRoute><Donate/></PrivateRoute>}/>
         </Route>
+        <Route path="*" element={<ErrorPage/>}></Route>
     </Routes>
   )
 }

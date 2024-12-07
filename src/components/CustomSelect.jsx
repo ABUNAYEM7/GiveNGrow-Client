@@ -49,7 +49,8 @@ const CustomSelect = () => {
   const onchangeHandler =(selectedValue)=>{
     setSelectValue(selectedValue)
   }
-console.log(selectValue)
+
+  
   return (
     <div className="form-control">
       <label className="label">

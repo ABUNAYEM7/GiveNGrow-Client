@@ -18,7 +18,6 @@ const CampaignDetails = () => {
     const donateHandler = (id)=>{
           navigate(`/CampaignDetails/${id}/Donate`)
     }
-    console.log(campaign)
   return (
     <div>
       <div className="card bg-base-100 w-11/12 mx-auto shadow-xl relative group">

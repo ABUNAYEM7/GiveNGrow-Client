@@ -46,13 +46,49 @@ const MyCamp = () => {
 
     // updateHandler
     const updateHandler =(id)=>{
-      console.log(id)
       navigate(`/AllCampaign/updateMyCampaign/${id}`)
     }
 
     // deleteHandler
     const deleteHandler =(id)=>{
-      console.log(id)
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`http://localhost:5000/deleteMyCampaign/${id}`,{
+            method : 'DELETE'
+          })
+          .then(res=>res.json())
+          .then(data=>{
+            if(data.deletedCount > 0){
+              Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Campaign Deleted Successfully",
+                    showConfirmButton: false,
+                    timer: 1500,
+              })
+              const remainingCampaign = myCampaign.filter(camp=>camp._id !== id)
+              setMyCampaign(remainingCampaign)
+            }
+          })
+          .catch(err=>{
+            Swal.fire({
+              title: `Update Fail`,
+              text: err.message || err.code,
+              icon: "error",
+              confirmButtonText: "close",
+            })
+          })
+        }
+      });
+
     }
 
     // table-columns
@@ -66,7 +102,10 @@ const MyCamp = () => {
       { id: "delete", label: "Delete Campaign", minWidth: 150 },
     ];
 
-    {if(myCampaign.length <= 0) return <h3 className='text-3xl font-bold text-primary text-center my-12'>No Campaign Added</h3>}
+
+    if (myCampaign.length <= 0) {
+      return <h3 className='text-3xl font-bold text-primary text-center my-12'>No Campaign Added</h3>;
+    }
 
   return (
     

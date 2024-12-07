@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Vortex } from "react-loader-spinner";
-import { useParams } from "react-router";
+import { data, useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import CustomSelect from "../components/CustomSelect";
@@ -9,6 +9,7 @@ const UpdateMyCampaign = () => {
   const [loading, setLoading] = useState(true);
   const [campaign, setCampaign] = useState({});
   const { id } = useParams();
+  const navigate = useNavigate()
   const { selectValue, setSelectValue } = useContext(AuthContext);
 
 //   data-fetching
@@ -30,7 +31,7 @@ const UpdateMyCampaign = () => {
   }, [id, setSelectValue]);
 
   
-  const submitHandler = (e) => {
+  const submitHandler = (e,id) => {
     e.preventDefault();
     const form = e.target;
     const userName = form.userName.value;
@@ -111,7 +112,75 @@ const UpdateMyCampaign = () => {
       campaignType,
     };
 
-    console.log(updatedCampaign)
+    fetch(`http://localhost:5000/updateMyCampaign/${id}`,{
+      method :'PATCH',
+      headers : {"content-type" : "application/json"},
+      body :JSON.stringify(updatedCampaign)
+    })
+    .then(res=>res.json())
+    .then(data => {
+      console.log(data)
+      if(data.modifiedCount > 0){
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Campaign Update Successfully",
+          showConfirmButton: false,
+          timer: 1500
+        })
+        form.reset()
+        navigate('/MyCampaign')
+      }
+      else if(data.modifiedCount === 0 &&
+              data.matchedCount === 1 &&
+              data.acknowledged === true
+            ){
+              const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: "btn bg-secondary text-white border-none mx-3",
+                  cancelButton: "btn btn-primary text-white border-none"
+                },
+                buttonsStyling: false
+              });
+              swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "You don't want to make changes",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, Update ",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Updated!",
+                    text: "Your Campaign has been Updated.",
+                    icon: "success"
+                  });
+                  form.reset()
+                  navigate('/MyCampaign')
+                } else if (
+                  /* Read more about handling dismissals below */
+                  result.dismiss === Swal.DismissReason.cancel
+                ) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "Your Campaign Data is safe :)",
+                    icon: "error"
+                  });
+                }
+              });
+            }
+    })
+    .catch(err=>{
+      console.log(err)
+      Swal.fire({
+        title: `Update Fail`,
+        text: err.message || err.code,
+        icon: "error",
+        confirmButtonText: "close",
+      })
+    })
   };
   return (
     <div>
@@ -129,7 +198,7 @@ const UpdateMyCampaign = () => {
         </div>
       ) : (
         <form
-          onSubmit={submitHandler}
+          onSubmit={(e)=>submitHandler(e,campaign._id)}
           className="card-body grid grid-cols-1 md:grid-cols-2 gap-5"
         >
           <div className="form-control">

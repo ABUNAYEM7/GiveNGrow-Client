@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import { Outlet } from 'react-router'
+import Footer from '../Pages/Footer'
 
 const MainLayout = () => {
   return (
@@ -11,8 +12,8 @@ const MainLayout = () => {
       <main className='max-w-screen-xl min-h-[550px] mx-auto'>
         <Outlet/>
       </main>
-      <footer className='w-full border-2'> 
-        Footer
+      <footer className='w-full'> 
+        <Footer/>
       </footer>
     </div>
   )
