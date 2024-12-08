@@ -30,11 +30,11 @@ const Iframe = () => {
               ✕
             </button>
           </form>
-          <div className="relative w-full pt-[42.85%] rounded-xl">
+          <div className="relative w-full pt-[42.85%]  rounded-xl">
             <iframe
               src="https://www.youtube.com/embed/8EUGN4C33e8?si=IfOOosWdMsN_GEJn"
               title="How Give & Grow Works"
-              className="absolute top-0 left-0 w-full h-full border-0 rounded-xl"
+              className="absolute  top-0 left-0 w-full h-full border-0 rounded-xl"
             ></iframe>
           </div>
         </div>

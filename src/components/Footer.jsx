@@ -62,7 +62,7 @@ const Footer = () => {
          />
        </h3>
          : 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col md:flex-row md:gap-0 gap-3">
         <input
           type="text"
           placeholder="username@site.com"
