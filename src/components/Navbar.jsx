@@ -96,11 +96,11 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 text-base text-primary font-medium space-x-4">
+        <ul className="menu menu-horizontal px-1 text-base text-primary font-base space-x-4">
           {links}
         </ul>
       </div>
-      <div className="navbar-end justify-around space-x-2 ">
+      <div className="md:navbar-end  justify-around space-x-2 ">
         <ThemeToggle />
 
         {user ? (

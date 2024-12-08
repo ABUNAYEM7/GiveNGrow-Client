@@ -42,7 +42,7 @@ const Footer = () => {
   </nav>
   <form>
     <h6 className="footer-title opacity-90 text-primary">Join Us</h6>
-    <fieldset className="form-control w-80">
+    <fieldset className="form-control">
       <label className="label">
         <span className="label-text">Enter your email address</span>
       </label>
@@ -62,14 +62,14 @@ const Footer = () => {
          />
        </h3>
          : 
-        <>
+        <div className="flex flex-col gap-3">
         <input
           type="text"
           placeholder="username@site.com"
-          className="input input-bordered join-item" />
+          className="input input-bordered  md:join-item" />
         <button 
-        className="btn bg-secondary text-white join-item">JoinUs</button>
-        </>}
+        className="btn bg-secondary text-white md:join-item">JoinUs</button>
+        </div>}
       </div>
     </fieldset>
   </form>
