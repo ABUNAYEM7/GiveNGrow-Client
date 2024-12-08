@@ -109,7 +109,7 @@ const MyCamp = () => {
 
   return (
     
-    <div className='my-12 p-4 border-2'>
+    <div className='my-12 p-4'>
       {/* campaign-info-container */}
       <div>
         <Info
