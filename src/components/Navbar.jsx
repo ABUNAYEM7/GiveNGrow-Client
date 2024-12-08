@@ -59,8 +59,10 @@ const Navbar = () => {
   const handleMouseLeave = () => {
     setTimeout(() => {
       setTooltipVisible(false); 
-    }, 2000); 
+    }, 1500); 
   };
+
+
 
   return (
     <div className="navbar px-4">

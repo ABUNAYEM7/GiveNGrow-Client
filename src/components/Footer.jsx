@@ -1,7 +1,13 @@
 import { TypeAnimation } from "react-type-animation"
 import logo from "../assets/logo.PNG"
 import { Link } from "react-router"
+import { useContext } from "react"
+import { AuthContext } from "../AuthProvider/AuthProvider"
+import Swal from "sweetalert2"
+
 const Footer = () => {
+  const {user} = useContext(AuthContext)
+
   return (
     <footer className="footer justify-items-center bg-base-200 text-base-content p-10">
   <nav className="w-24 h-40 ">
@@ -41,11 +47,29 @@ const Footer = () => {
         <span className="label-text">Enter your email address</span>
       </label>
       <div className="join">
+        {user?.email ?
+         <h3 className="w-11/12  text-xl  font-medium text-primary mt-3">
+         <TypeAnimation
+           sequence={[
+             `${user?.email?.split('@')[0]}`,
+             2000,
+             "Thank For Join us",
+             2000,
+           ]}
+           wrapper="p"
+           cursor={true}
+           repeat={Infinity}
+         />
+       </h3>
+         : 
+        <>
         <input
           type="text"
           placeholder="username@site.com"
           className="input input-bordered join-item" />
-        <button className="btn bg-secondary text-white join-item">JoinUs</button>
+        <button 
+        className="btn bg-secondary text-white join-item">JoinUs</button>
+        </>}
       </div>
     </fieldset>
   </form>
