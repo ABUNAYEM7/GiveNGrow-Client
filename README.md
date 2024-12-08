@@ -39,6 +39,7 @@ This is a crowdfunding website where you can contribute to other people's projec
 8. **React Type Animation**
 9. **React Slick**
 10. **React-awesome-reveal**
+11. **React-Lottie**
 
 ## Extra Sections
 
@@ -50,6 +51,9 @@ In this section, we display a marquee where all the campaigns have a shorter des
 
 ### Our Features
 In this section, we display the process of our campaign and how much we are famous in the world and how trusted we are.
+
+### How To Use Give & Grow :
+Here we mention the user manually and describe how people can use out services and how they can achieved their dream.
 
 ## Live Link
 [Visit the live website](https://give-n-grow.web.app)

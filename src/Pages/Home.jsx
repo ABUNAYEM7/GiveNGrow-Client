@@ -4,6 +4,7 @@ import Campaigns from '../components/Campaigns'
 import Iframe from '../components/Iframe'
 import HelpFor from '../components/HelpFor'
 import Features from '../components/Features'
+import HowToUse from '../components/HowToUse'
 
 
 const Home = () => {
@@ -24,6 +25,9 @@ const Home = () => {
       </div>
       <div>
         <Features/>
+      </div>
+      <div>
+        <HowToUse/>
       </div>
     </div>
   )
