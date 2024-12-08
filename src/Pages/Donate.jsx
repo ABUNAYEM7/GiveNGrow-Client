@@ -166,7 +166,7 @@ const Donate = () => {
               <span className="label-text">Deadline</span>
             </label>
             <input
-              defaultValue={deadline}
+              defaultValue={deadline.split('T')[0]}
               name="deadline"
               type="text"
               placeholder="Deadline"

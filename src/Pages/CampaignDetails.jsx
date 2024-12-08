@@ -30,11 +30,6 @@ const CampaignDetails = () => {
       </figure>
       <div className="card-body p-4 space-y-4">
         <div className='space-x-6'>
-        <div
-          className={`badge badge-secondary`}
-        >
-          Active
-        </div>
         <div className={`badge bg-primary text-white`}
         >
           {campaignType}
