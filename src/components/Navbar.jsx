@@ -59,7 +59,7 @@ const Navbar = () => {
   const handleMouseLeave = () => {
     setTimeout(() => {
       setTooltipVisible(false); 
-    }, 1500); 
+    }, 1000); 
   };
 
 

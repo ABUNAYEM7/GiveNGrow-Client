@@ -44,7 +44,7 @@ const AllCampaignCards = () => {
 
   const minDonationHandler = ()=>{
     const sortedByRising = [...allCampaign].sort((a,b)=>{
-        return b.minDonation - a.minDonation
+        return a.minDonation - b.minDonation
     })
     setAllCampaign(sortedByRising)
     Swal.fire({
