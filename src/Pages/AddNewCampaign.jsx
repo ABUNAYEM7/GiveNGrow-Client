@@ -6,8 +6,8 @@ import CustomSelect from "../components/CustomSelect";
 import { useNavigate } from "react-router";
 
 const AddNewCampaign = () => {
-  const navigate = useNavigate()
-  const { user,selectValue,setSelectValue } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { user, selectValue, setSelectValue } = useContext(AuthContext);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -22,9 +22,9 @@ const AddNewCampaign = () => {
     const deadline = form.deadline.value;
     const goal = form.goal.value;
 
-    if(!selectValue){
+    if (!selectValue) {
       return Swal.fire({
-        title: 'Invalid Campaign Type',
+        title: "Invalid Campaign Type",
         text: "Please Selected Campaign Type",
         icon: "error",
         confirmButtonText: "close",
@@ -85,7 +85,7 @@ const AddNewCampaign = () => {
       raisedAmount,
       goal,
       minDonation,
-      campaignType
+      campaignType,
     };
 
     fetch("https://give-ngrow-server.vercel.app/newCampaign", {
@@ -103,8 +103,8 @@ const AddNewCampaign = () => {
             confirmButtonText: "Thanks",
           });
           form.reset();
-          setSelectValue(null)
-          navigate('/MyCampaign')
+          setSelectValue(null);
+          navigate("/MyCampaign");
         }
       })
       .catch((err) => {
@@ -199,7 +199,7 @@ const AddNewCampaign = () => {
             />
           </div>
           <div className="form-control">
-            <CustomSelect/>
+            <CustomSelect />
           </div>
           <div className="form-control">
             <label className="label">

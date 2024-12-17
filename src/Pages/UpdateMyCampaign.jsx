@@ -9,29 +9,28 @@ const UpdateMyCampaign = () => {
   const [loading, setLoading] = useState(true);
   const [campaign, setCampaign] = useState({});
   const { id } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { selectValue, setSelectValue } = useContext(AuthContext);
 
-//   data-fetching
+  //   data-fetching
   useEffect(() => {
     fetch(`https://give-ngrow-server.vercel.app/AllCampaign/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-            const campaignData = data[0];  
-            setCampaign(campaignData);
-            setSelectValue({
-              value: campaignData.campaignType,
-              label: campaignData.campaignType,
-            });
-    
-            setLoading(false)
+          const campaignData = data[0];
+          setCampaign(campaignData);
+          setSelectValue({
+            value: campaignData.campaignType,
+            label: campaignData.campaignType,
+          });
+
+          setLoading(false);
         }
       });
   }, [id, setSelectValue]);
 
-  
-  const submitHandler = (e,id) => {
+  const submitHandler = (e, id) => {
     e.preventDefault();
     const form = e.target;
     const userName = form.userName.value;
@@ -112,73 +111,75 @@ const UpdateMyCampaign = () => {
       campaignType,
     };
 
-    fetch(`https://give-ngrow-server.vercel.app/updateMyCampaign/${id}`,{
-      method :'PATCH',
-      headers : {"content-type" : "application/json"},
-      body :JSON.stringify(updatedCampaign)
+    fetch(`https://give-ngrow-server.vercel.app/updateMyCampaign/${id}`, {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(updatedCampaign),
     })
-    .then(res=>res.json())
-    .then(data => {
-      if(data.modifiedCount > 0){
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Campaign Update Successfully",
-          showConfirmButton: false,
-          timer: 1500
-        })
-        form.reset()
-        navigate('/MyCampaign')
-      }
-      else if(data.modifiedCount === 0 &&
-              data.matchedCount === 1 &&
-              data.acknowledged === true
-            ){
-              const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                  confirmButton: "btn bg-secondary text-white border-none mx-3",
-                  cancelButton: "btn btn-primary text-white border-none"
-                },
-                buttonsStyling: false
-              });
-              swalWithBootstrapButtons.fire({
-                title: "Are you sure?",
-                text: "You don't want to make changes",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, Update ",
-                cancelButtonText: "No, cancel!",
-                reverseButtons: true
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  swalWithBootstrapButtons.fire({
-                    title: "Updated!",
-                    text: "Your Campaign has been Updated.",
-                    icon: "success"
-                  });
-                  form.reset()
-                  navigate('/MyCampaign')
-                } else if (
-                  /* Read more about handling dismissals below */
-                  result.dismiss === Swal.DismissReason.cancel
-                ) {
-                  swalWithBootstrapButtons.fire({
-                    title: "Cancelled",
-                    text: "Your Campaign Data is safe :)",
-                    icon: "error"
-                  });
-                }
-              });
-            }
-    })
-    .catch(err=>{
-      Swal.fire({
-        title: `Update Fail`,
-        text: err.message || err.code,
-        icon: "error",
-        confirmButtonText: "close",
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Campaign Update Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          form.reset();
+          navigate("/MyCampaign");
+        } else if (
+          data.modifiedCount === 0 &&
+          data.matchedCount === 1 &&
+          data.acknowledged === true
+        ) {
+          const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: "btn bg-secondary text-white border-none mx-3",
+              cancelButton: "btn btn-primary text-white border-none",
+            },
+            buttonsStyling: false,
+          });
+          swalWithBootstrapButtons
+            .fire({
+              title: "Are you sure?",
+              text: "You don't want to make changes",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonText: "Yes, Update ",
+              cancelButtonText: "No, cancel!",
+              reverseButtons: true,
+            })
+            .then((result) => {
+              if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire({
+                  title: "Updated!",
+                  text: "Your Campaign has been Updated.",
+                  icon: "success",
+                });
+                form.reset();
+                navigate("/MyCampaign");
+              } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+              ) {
+                swalWithBootstrapButtons.fire({
+                  title: "Cancelled",
+                  text: "Your Campaign Data is safe :)",
+                  icon: "error",
+                });
+              }
+            });
+        }
       })
-    })
+      .catch((err) => {
+        Swal.fire({
+          title: `Update Fail`,
+          text: err.message || err.code,
+          icon: "error",
+          confirmButtonText: "close",
+        });
+      });
   };
   return (
     <div>
@@ -196,7 +197,7 @@ const UpdateMyCampaign = () => {
         </div>
       ) : (
         <form
-          onSubmit={(e)=>submitHandler(e,campaign._id)}
+          onSubmit={(e) => submitHandler(e, campaign._id)}
           className="card-body grid grid-cols-1 md:grid-cols-2 gap-5"
         >
           <div className="form-control">

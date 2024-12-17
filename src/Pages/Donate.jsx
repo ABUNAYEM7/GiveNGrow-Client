@@ -20,9 +20,15 @@ const Donate = () => {
       });
   }, []);
 
-  const { _id = "", title = "", deadline = "", goal = "" ,minDonation =''} = campaign;
+  const {
+    _id = "",
+    title = "",
+    deadline = "",
+    goal = "",
+    minDonation = "",
+  } = campaign;
 
-  const submitHandler = (e,minDonation) => {
+  const submitHandler = (e, minDonation) => {
     e.preventDefault();
     const form = e.target;
     const name = form.name.value;
@@ -32,7 +38,7 @@ const Donate = () => {
     const goal = form.goal.value;
 
     let currentDate = new Date().toISOString().split("T")[0];
-    const deadlineDate = new Date(deadline).toISOString().split("T")[0]
+    const deadlineDate = new Date(deadline).toISOString().split("T")[0];
 
     if (currentDate > deadlineDate) {
       return Swal.fire({
@@ -40,61 +46,60 @@ const Donate = () => {
         text: "Sorry Campaign Is Expired",
         icon: "info",
         confirmButtonText: "close",
-      })
+      });
     }
 
-    const donationAmount = Number.parseInt(amount)
-    const goalAmount = Number.parseInt(goal)
-    
-    if(donationAmount < minDonation){
-      return   Swal.fire({
+    const donationAmount = Number.parseInt(amount);
+    const goalAmount = Number.parseInt(goal);
+
+    if (donationAmount < minDonation) {
+      return Swal.fire({
         title: `Less Then Minimum Amount`,
         text: `Please Donate More Then ${minDonation}`,
         icon: "warning",
         confirmButtonText: "close",
-      })
+      });
     }
 
-
-    if(donationAmount > goalAmount){
-      return  Swal.fire({
+    if (donationAmount > goalAmount) {
+      return Swal.fire({
         title: `Out OF Goal`,
         text: "Please Donate Less Then Goal Amount",
         icon: "warning",
         confirmButtonText: "close",
-      })
+      });
     }
 
-    const donationData={name ,email,title,deadline,amount,goal}
+    const donationData = { name, email, title, deadline, amount, goal };
 
-    fetch('https://give-ngrow-server.vercel.app/donation',{
-        method :'POST',
-        headers :{'content-type' :"application/json"},
-        body :JSON.stringify(donationData)
+    fetch("https://give-ngrow-server.vercel.app/donation", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(donationData),
     })
-    .then(res=>res.json())
-    .then((data)=>{
-        if(data.insertedId){
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Donation successful",
-                showConfirmButton: false,
-                timer: 1500,
-              })
-              form.reset()
-              navigate('/')
-        }
-    })
-    .catch(err=>{
-        Swal.fire({
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
             position: "center",
-            icon: "error",
-            title:err.message || err.code,
+            icon: "success",
+            title: "Donation successful",
             showConfirmButton: false,
             timer: 1500,
-          })
-    })
+          });
+          form.reset();
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.message || err.code,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   const donationDate = new Date().toISOString();
@@ -116,7 +121,7 @@ const Donate = () => {
       )}
       <div>
         <form
-          onSubmit={(e)=>submitHandler(e,minDonation)}
+          onSubmit={(e) => submitHandler(e, minDonation)}
           className="card-body grid grid-cols-1 md:grid-cols-2 gap-5"
         >
           <div className="form-control">
@@ -166,7 +171,7 @@ const Donate = () => {
               <span className="label-text">Deadline</span>
             </label>
             <input
-              defaultValue={deadline.split('T')[0]}
+              defaultValue={deadline.split("T")[0]}
               name="deadline"
               type="text"
               placeholder="Deadline"

@@ -8,15 +8,14 @@ const HelpFor = () => {
 
   useEffect(() => {
     fetch("https://give-ngrow-server.vercel.app/AllCampaign")
-      .then((res) =>res.json())
+      .then((res) => res.json())
       .then((data) => {
         setCampaign(data);
       })
       .finally(() => {
-        setLoading(false); 
+        setLoading(false);
       });
   }, []);
-
 
   if (loading) {
     return (
@@ -34,8 +33,6 @@ const HelpFor = () => {
     );
   }
 
-
-
   if (campaign.length === 0) {
     return (
       <div className="text-center py-12">
@@ -44,7 +41,6 @@ const HelpFor = () => {
       </div>
     );
   }
-
 
   return (
     <div className="my-6 p-4">

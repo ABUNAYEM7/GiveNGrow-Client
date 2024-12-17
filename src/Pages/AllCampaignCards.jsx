@@ -12,68 +12,68 @@ import { Vortex } from "react-loader-spinner";
 
 const AllCampaignCards = () => {
   const [allCampaign, setAllCampaign] = useState([]);
-  const [loading,setLoading] = useState(false)
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetch("https://give-ngrow-server.vercel.app/AllCampaign")
       .then((res) => res.json())
       .then((data) => {
-        setAllCampaign(data)
-        setLoading(false)
+        setAllCampaign(data);
+        setLoading(false);
       })
-      .catch((err)=>{
-        setLoading(false)
-      })
+      .catch((err) => {
+        setLoading(false);
+      });
   }, []);
 
-  const getStatus = (deadline)=>{
+  const getStatus = (deadline) => {
     let currentDate = new Date();
-    currentDate.setHours(0,0,0,0)
+    currentDate.setHours(0, 0, 0, 0);
 
-    const deadlineDate = new Date(deadline)
-    deadlineDate.setHours(0,0,0,0)
+    const deadlineDate = new Date(deadline);
+    deadlineDate.setHours(0, 0, 0, 0);
 
     if (currentDate > deadlineDate) {
-      return 'Expired'
+      return "Expired";
     } else {
-      return 'Active'
+      return "Active";
     }
-  }
+  };
 
-  const minDonationHandler = ()=>{
-    const sortedByRising = [...allCampaign].sort((a,b)=>{
-        return a.minDonation - b.minDonation
-    })
-    setAllCampaign(sortedByRising)
+  const minDonationHandler = () => {
+    const sortedByRising = [...allCampaign].sort((a, b) => {
+      return a.minDonation - b.minDonation;
+    });
+    setAllCampaign(sortedByRising);
     Swal.fire({
       position: "center",
       icon: "success",
       title: "Sorted By Minimum Donation",
       showConfirmButton: false,
-      timer: 1500
+      timer: 1500,
     });
-  }
+  };
 
-  const targetHandler =()=>{
-    const sortByTargetAmount = [...allCampaign].sort((a,b)=>{
+  const targetHandler = () => {
+    const sortByTargetAmount = [...allCampaign].sort((a, b) => {
       return a.goal - b.goal;
-  })
+    });
 
-  setAllCampaign(sortByTargetAmount)
-  Swal.fire({
-    position: "center",
-    icon: "success",
-    title: "Sorted By Target Amount",
-    showConfirmButton: false,
-    timer: 1500
-  });
-  }
+    setAllCampaign(sortByTargetAmount);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Sorted By Target Amount",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
 
-  const seeMoreHandler =(id)=>{
-      navigate(`/CampaignDetails/${id}`)
-  }
+  const seeMoreHandler = (id) => {
+    navigate(`/CampaignDetails/${id}`);
+  };
 
   const columns = [
     { id: "No:", label: "No:", minWidth: 50 },
@@ -86,97 +86,108 @@ const AllCampaignCards = () => {
   ];
 
   return (
-    <div >
-       {loading && (
-         <div className="w-full min-h-28 flex items-center justify-center">
-            <Vortex
-          visible={true}
-          height="180"
-          width="180"
-          ariaLabel="vortex-loading"
-          wrapperStyle={{}}
-          wrapperClass="vortex-wrapper"
-          colors={["red", "green", "blue", "yellow", "orange", "purple"]}
-        />
+    <div>
+      {loading && (
+        <div className="w-full min-h-28 flex items-center justify-center">
+          <Vortex
+            visible={true}
+            height="180"
+            width="180"
+            ariaLabel="vortex-loading"
+            wrapperStyle={{}}
+            wrapperClass="vortex-wrapper"
+            colors={["red", "green", "blue", "yellow", "orange", "purple"]}
+          />
         </div>
       )}
-       {
-        !loading &&(
-          <>
+      {!loading && (
+        <>
           <div className="flex items-center justify-center my-6">
-       <div className="flex flex-col items-center gap-5">
-       <h3 className="text-3xl font-bold text-primary">Sort it, simplify it, <span className="text-secondary">find it faster!</span></h3>
-       <div className="flex flex-row gap-5">
-        <button 
-        onClick={minDonationHandler}
-        className="btn bg-secondary text-white hover:text-secondary">Minimum Donation</button>
-        <button 
-        onClick={targetHandler}
-        className="btn bg-primary text-white hover:text-primary">Target Amount</button>
-       </div>
-       </div>
-       </div>
-      <div>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table"><TableHead className="bg-primary text-white">
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id} 
-                    align={column.align || "left"}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow></TableHead>
-            <TableBody>
-              {allCampaign.map((row, rowIndex) => (
-                <TableRow
-                  hover
-                  role="checkbox"
-                  tabIndex={-1}
-                  key={rowIndex} 
+            <div className="flex flex-col items-center gap-5">
+              <h3 className="text-3xl font-bold text-primary">
+                Sort it, simplify it,{" "}
+                <span className="text-secondary">find it faster!</span>
+              </h3>
+              <div className="flex flex-row gap-5">
+                <button
+                  onClick={minDonationHandler}
+                  className="btn bg-secondary text-white hover:text-secondary"
                 >
-                  {columns.map((column) => {
-                    let value = column.id === "No:" ? rowIndex + 1 : row[column.id];
-                      if(column.id === 'deadline'){
-                        value = getStatus(row.deadline)
-                      }
-                      if(column.id === 'Contribute'){
-                        return(
-                          <TableCell
-                        key={`${row.id}-${column.id}`} 
-                        align={column.align || "left"}
+                  Minimum Donation
+                </button>
+                <button
+                  onClick={targetHandler}
+                  className="btn bg-primary text-white hover:text-primary"
+                >
+                  Target Amount
+                </button>
+              </div>
+            </div>
+          </div>
+          <div>
+            <Paper sx={{ width: "100%", overflow: "hidden" }}>
+              <TableContainer sx={{ maxHeight: 440 }}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead className="bg-primary text-white">
+                    <TableRow>
+                      {columns.map((column) => (
+                        <TableCell
+                          key={column.id}
+                          align={column.align || "left"}
+                          style={{ minWidth: column.minWidth }}
+                        >
+                          {column.label}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {allCampaign.map((row, rowIndex) => (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={rowIndex}
                       >
-                        <button 
-                        onClick={()=>seeMoreHandler(row._id)}
-                        className="btn bg-primary text-white  border-none hover:text-primary">
-                          See More
-                        </button>
-                      </TableCell>
-                        )
-                      }
-                    return (
-                      <TableCell
-                        key={`${row.id}-${column.id}`} 
-                        align={column.align || "left"}
-                      >
-                        {value || "--"} 
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-      </div>
-          </>
-        )
-       }
+                        {columns.map((column) => {
+                          let value =
+                            column.id === "No:" ? rowIndex + 1 : row[column.id];
+                          if (column.id === "deadline") {
+                            value = getStatus(row.deadline);
+                          }
+                          if (column.id === "Contribute") {
+                            return (
+                              <TableCell
+                                key={`${row.id}-${column.id}`}
+                                align={column.align || "left"}
+                              >
+                                <button
+                                  onClick={() => seeMoreHandler(row._id)}
+                                  className="btn bg-primary text-white  border-none hover:text-primary"
+                                >
+                                  See More
+                                </button>
+                              </TableCell>
+                            );
+                          }
+                          return (
+                            <TableCell
+                              key={`${row.id}-${column.id}`}
+                              align={column.align || "left"}
+                            >
+                              {value || "--"}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+          </div>
+        </>
+      )}
     </div>
   );
 };
