@@ -9,24 +9,31 @@ import Swal from "sweetalert2";
 const Navbar = () => {
   const { user, userLogOut } = useContext(AuthContext);
   const [isTooltipVisible, setTooltipVisible] = useState(false);
-  
+
   const links = (
     <>
       <li>
         <NavLink to={"/"}>Home</NavLink>
       </li>
       <li>
-        <NavLink to={"MyCampaign"}>My Campaign</NavLink>
-      </li>
-      <li>
-        <NavLink to={"AddCampaign"}>Add New Campaign</NavLink>
-      </li>
-      <li>
-        <NavLink to={"MyDonation"}>My Donations</NavLink>
-      </li>
-      <li>
         <NavLink to={"AllCampaign"}>All Campaign</NavLink>
       </li>
+      <li>
+        <NavLink to={"supportUs"}>Support Us</NavLink>
+      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to={"MyCampaign"}>My Campaign</NavLink>
+          </li>
+          <li>
+            <NavLink to={"AddCampaign"}>Add New Campaign</NavLink>
+          </li>
+          <li>
+            <NavLink to={"MyDonation"}>My Donations</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -41,7 +48,7 @@ const Navbar = () => {
           timer: 1500,
         });
       })
-      .catch((err) =>{
+      .catch((err) => {
         Swal.fire({
           position: "center",
           icon: "error",
@@ -58,14 +65,12 @@ const Navbar = () => {
 
   const handleMouseLeave = () => {
     setTimeout(() => {
-      setTooltipVisible(false); 
-    }, 1000); 
+      setTooltipVisible(false);
+    }, 1000);
   };
 
-
-
   return (
-    <div className="navbar px-4">
+    <div className="max-w-screen-2xl mx-auto navbar justify-between fixed top-0 z-50 px-4 bg-primary/80 text-white ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -86,17 +91,21 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow space-y-2 text-base text-primary font-medium"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow space-y-2 text-base text-white font-medium"
           >
             {links}
           </ul>
         </div>
         <Link to={"/"}>
-          <img className="w-16 h-16 rounded-full hidden sm:block" src={logo} alt="" />
+          <img
+            className="w-16 h-16 rounded-full hidden sm:block"
+            src={logo}
+            alt=""
+          />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 text-base text-primary font-base space-x-4">
+        <ul className="menu menu-horizontal px-1 text-base text-black font-base space-x-4">
           {links}
         </ul>
       </div>
@@ -104,20 +113,23 @@ const Navbar = () => {
         <ThemeToggle />
 
         {user ? (
-          <div className="relative" 
-               onMouseEnter={handleMouseEnter} 
-               onMouseLeave={handleMouseLeave}>
+          <div
+            className="relative"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
             <button className="rounded-full ring-2 ring-primary">
               {user?.photoURL ? (
                 <img
+                referrerPolicy="no referrer"
                   className="w-14 h-14 rounded-full ring-2 ring-primary"
                   src={user.photoURL}
                   alt="User"
                 />
               ) : (
-               <h3 className="p-4">
-                <FaUser size={20} />
-               </h3>
+                <h3 className="p-4">
+                  <FaUser size={20} />
+                </h3>
               )}
             </button>
 

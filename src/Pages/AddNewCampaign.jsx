@@ -4,6 +4,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import CustomSelect from "../components/CustomSelect";
 import { useNavigate } from "react-router";
+import { Helmet } from "react-helmet";
 
 const AddNewCampaign = () => {
   const navigate = useNavigate();
@@ -118,7 +119,11 @@ const AddNewCampaign = () => {
   };
 
   return (
-    <div>
+    <div className="mt-20">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>G&G || ADD NEW CAMPAIGN</title>
+      </Helmet>
       {/* info-container */}
       <div>
         <Info

@@ -13,6 +13,7 @@ import Donate from "../Pages/Donate";
 import UpdateMyCampaign from "../Pages/UpdateMyCampaign";
 import ErrorPage from "../Pages/ErrorPage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SupportUs from "../Pages/SupportUs";
 
 
 const AppRoutes = () => {
@@ -33,10 +34,14 @@ const AppRoutes = () => {
         {<PrivateRoute><MyDonation/></PrivateRoute>}>
         </Route>
 
+        <Route path="supportUs" element=
+        {<SupportUs/>}>
+        </Route>
+
         <Route path="SignIn" element={<SignIn/>}/>
         <Route path="Register" element={<Register/>}/>
 
-        {/* nested-Routes */}
+        {/*campaign  nested-Routes */}
         <Route path="" element={
           <AllCampaign/>
           }>
@@ -44,9 +49,10 @@ const AppRoutes = () => {
           <Route path="/AllCampaign/updateMyCampaign/:id" element={<PrivateRoute> <UpdateMyCampaign/> </PrivateRoute>}/>
 
         </Route>
-
+        
+        {/* dynamic-route */}
         <Route path="/CampaignDetails/:id" element={
-          <PrivateRoute><CampaignDetails/></PrivateRoute>
+          <CampaignDetails/>
         }/>
         <Route path="/CampaignDetails/:id/Donate" element={<PrivateRoute><Donate/></PrivateRoute>}/>
         </Route>

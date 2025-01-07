@@ -1,36 +1,40 @@
-import React from 'react'
-import Banner from '../components/Banner'
-import Campaigns from '../components/Campaigns'
-import Iframe from '../components/Iframe'
-import HelpFor from '../components/HelpFor'
-import Features from '../components/Features'
-import HowToUse from '../components/HowToUse'
-
+import React from "react";
+import Banner from "../components/Banner";
+import Campaigns from "../components/Campaigns";
+import Iframe from "../components/Iframe";
+import HelpFor from "../components/HelpFor";
+import Features from "../components/Features";
+import HowToUse from "../components/HowToUse";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   return (
     <div>
-        {/* banner-container */}
-      <div className='px-4'>
-        <Banner/>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>G&G ||HOME</title>
+      </Helmet>
+      {/* banner-container */}
+      <div>
+        <Banner />
       </div>
       <div>
-        <Campaigns/>
+        <Campaigns />
       </div>
       <div>
-        <Iframe/>
+        <Iframe />
       </div>
       <div>
-        <HelpFor/>
+        <HelpFor />
       </div>
       <div>
-        <Features/>
+        <Features />
       </div>
       <div>
-        <HowToUse/>
+        <HowToUse />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

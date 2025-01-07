@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const [show, setShow] = useState(false);
@@ -91,6 +92,10 @@ const Register = () => {
 
   return (
     <div className="hero flex items-center justify-center  min-h-[510px]">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>G&G || SIGN UP </title>
+      </Helmet>
       <div className="hero-content w-full  justify-around flex-col lg:flex-row-reverse">
         <div className="w-full lg:w-2/4 min-h-36 text-center">
           <h1 className="text-5xl font-bold">Register now </h1>

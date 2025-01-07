@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
   const {pathname} = useLocation()
 
   if (loading) {
-    return <div className="w-full min-h-28 flex items-center justify-center">
+    return <div className="mt-20 w-full min-h-28 flex items-center justify-center">
       <Vortex
         visible={true}
         height="180"

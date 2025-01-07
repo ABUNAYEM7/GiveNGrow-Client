@@ -29,12 +29,13 @@ const CampaignDetails = () => {
     navigate(`/CampaignDetails/${id}/Donate`);
   };
   return (
-    <div>
-      <div className="card bg-base-100 w-11/12 mx-auto shadow-xl relative group">
-        <figure className="h-[400px] w-full">
-          <img src={image} alt={title} className="w-full h-full" />
+    <div className="my-12">
+      <div className="card bg-base-100 md:flex-row w-11/12 mx-auto shadow-xl relative group">
+        <figure className="max-h-[500px] w-full md:w-1/2">
+          <img src={image} alt={title} 
+          className="w-full h-full " />
         </figure>
-        <div className="card-body p-4 space-y-4">
+        <div className="w-full md:w-1/2 card-body p-4 space-y-4">
           <div className="space-x-6">
             <div className={`badge bg-primary text-white`}>{campaignType}</div>
           </div>

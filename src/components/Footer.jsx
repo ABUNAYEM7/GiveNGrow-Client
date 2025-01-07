@@ -41,14 +41,11 @@ const Footer = () => {
     <Link className="link link-hover">cookie policy</Link>
   </nav>
   <form>
-    <h6 className="footer-title opacity-90 text-primary">Join Us</h6>
+    <h6 className="w-[300px] footer-title opacity-90 text-primary  text-center">Join Us</h6>
     <fieldset className="form-control">
-      <label className="label">
-        <span className="label-text">Enter your email address</span>
-      </label>
       <div className="join">
         {user?.email ?
-         <h3 className="w-11/12  text-xl  font-medium text-primary mt-3">
+         <h3 className="w-11/12  text-xl  font-medium text-primary mt-3 ">
          <TypeAnimation
            sequence={[
              `${user?.email?.split('@')[0]}`,

@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import Info from "../components/Info";
 import { useNavigate } from "react-router";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet";
 
 const MyCamp = () => {
   const [myCampaign, setMyCampaign] = useState([]);
@@ -108,16 +109,20 @@ const MyCamp = () => {
     { id: "delete", label: "Delete Campaign", minWidth: 150 },
   ];
 
-  if (myCampaign.length <= 0) {
-    return (
-      <h3 className="text-3xl font-bold text-primary text-center my-12">
-        No Campaign Added
-      </h3>
-    );
-  }
+
 
   return (
-    <div className="my-12 p-4">
+    <div className="mt-12 p-4">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>G&G ||MY CAMPAIGN</title>
+      </Helmet>
+      {
+        myCampaign.length === 0 &&
+        <h3 className=" text-3xl font-bold text-primary text-center my-12">
+        No Campaign Added
+      </h3>
+      }
       {/* campaign-info-container */}
       <div>
         <Info

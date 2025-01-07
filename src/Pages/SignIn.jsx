@@ -4,6 +4,7 @@ import { FaEyeSlash, FaRegEye } from "react-icons/fa";
 import { TypeAnimation } from "react-type-animation";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 const SignIn = () => {
   const [show, setShow] = useState(false);
@@ -70,6 +71,10 @@ const SignIn = () => {
 
   return (
     <div className="hero flex items-center justify-center  min-h-[510px]">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>G&G || SiGN IN</title>
+      </Helmet>
       <div className="hero-content w-full  justify-around flex-col lg:flex-row-reverse">
         <div className="w-full lg:w-2/4  text-center">
           <h1 className="text-5xl font-bold">Login now </h1>

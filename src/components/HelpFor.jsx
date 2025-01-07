@@ -19,7 +19,7 @@ const HelpFor = () => {
 
   if (loading) {
     return (
-      <div className="w-full min-h-28 flex items-center justify-center">
+      <div className="my-20 w-full min-h-28 flex items-center justify-center">
         <Vortex
           visible={true}
           height="180"
@@ -47,7 +47,7 @@ const HelpFor = () => {
       <h3 className="text-3xl font-bold text-primary text-center mb-12">
         Give & Grow Help For
       </h3>
-      <div>
+      <div className="mt-12">
         <Marquee pauseOnHover={true}>
           {campaign.map((item, index) => (
             <div

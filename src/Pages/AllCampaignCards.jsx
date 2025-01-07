@@ -9,10 +9,12 @@ import TableRow from "@mui/material/TableRow";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 import { Vortex } from "react-loader-spinner";
+import Card from "../components/Card";
 
 const AllCampaignCards = () => {
   const [allCampaign, setAllCampaign] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [sortValue,setSortValue] = useState("")
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,34 +44,6 @@ const AllCampaignCards = () => {
     }
   };
 
-  const minDonationHandler = () => {
-    const sortedByRising = [...allCampaign].sort((a, b) => {
-      return a.minDonation - b.minDonation;
-    });
-    setAllCampaign(sortedByRising);
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Sorted By Minimum Donation",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  };
-
-  const targetHandler = () => {
-    const sortByTargetAmount = [...allCampaign].sort((a, b) => {
-      return a.goal - b.goal;
-    });
-
-    setAllCampaign(sortByTargetAmount);
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Sorted By Target Amount",
-      showConfirmButton: false,
-      timer: 1500,
-    });
-  };
 
   const seeMoreHandler = (id) => {
     navigate(`/CampaignDetails/${id}`);
@@ -85,10 +59,42 @@ const AllCampaignCards = () => {
     { id: "Contribute", label: "Contribution", minWidth: 50 },
   ];
 
+  // sorting functionality
+  useEffect(()=>{
+    if(sortValue === "Sort By Minimum Donation"){
+      const sortedByRising = [...allCampaign].sort((a, b) => {
+        return a.minDonation - b.minDonation;
+      });
+      setAllCampaign(sortedByRising);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Sorted By Minimum Donation",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+    else if(sortValue === "Sort By Target Amount"){
+      const sortByTargetAmount = [...allCampaign].sort((a, b) => {
+        return b.goal - a.goal;
+      });
+  
+      setAllCampaign(sortByTargetAmount);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Sorted By Target Amount",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  },[sortValue])
+
+
   return (
     <div>
       {loading && (
-        <div className="w-full min-h-28 flex items-center justify-center">
+        <div className="mt-20 w-full min-h-28 flex items-center justify-center">
           <Vortex
             visible={true}
             height="180"
@@ -108,7 +114,21 @@ const AllCampaignCards = () => {
                 Sort it, simplify it,{" "}
                 <span className="text-secondary">find it faster!</span>
               </h3>
-              <div className="flex flex-row gap-5">
+
+              <select 
+              onChange={(e)=>setSortValue(e.target.value)}
+              defaultValue={"Default"}
+              className="select select-secondary w-full max-w-xs">
+                <option disabled 
+                value={"Default"}>
+                  Default
+                </option>
+                <option
+                >Sort By Minimum Donation</option>
+                <option>Sort By Target Amount</option>
+              </select>
+
+              {/* <div className="flex flex-row gap-5">
                 <button
                   onClick={minDonationHandler}
                   className="btn bg-secondary text-white hover:text-secondary"
@@ -121,70 +141,14 @@ const AllCampaignCards = () => {
                 >
                   Target Amount
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
-          <div>
-            <Paper sx={{ width: "100%", overflow: "hidden" }}>
-              <TableContainer sx={{ maxHeight: 440 }}>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead className="bg-primary text-white">
-                    <TableRow>
-                      {columns.map((column) => (
-                        <TableCell
-                          key={column.id}
-                          align={column.align || "left"}
-                          style={{ minWidth: column.minWidth }}
-                        >
-                          {column.label}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {allCampaign.map((row, rowIndex) => (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={rowIndex}
-                      >
-                        {columns.map((column) => {
-                          let value =
-                            column.id === "No:" ? rowIndex + 1 : row[column.id];
-                          if (column.id === "deadline") {
-                            value = getStatus(row.deadline);
-                          }
-                          if (column.id === "Contribute") {
-                            return (
-                              <TableCell
-                                key={`${row.id}-${column.id}`}
-                                align={column.align || "left"}
-                              >
-                                <button
-                                  onClick={() => seeMoreHandler(row._id)}
-                                  className="btn bg-primary text-white  border-none hover:text-primary"
-                                >
-                                  See More
-                                </button>
-                              </TableCell>
-                            );
-                          }
-                          return (
-                            <TableCell
-                              key={`${row.id}-${column.id}`}
-                              align={column.align || "left"}
-                            >
-                              {value || "--"}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Paper>
+          {/* card-container */}
+          <div className="my-12 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center">
+          {allCampaign.map(campaign=>(
+            <Card key={campaign._id} campaign={campaign} />
+          ))}
           </div>
         </>
       )}

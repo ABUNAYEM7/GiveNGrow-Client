@@ -4,6 +4,7 @@ import Info from "../components/Info";
 import { Vortex } from "react-loader-spinner";
 import axios from "axios";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet";
 
 const MyDonation = () => {
   const [donation, setDonation] = useState([]);
@@ -30,8 +31,12 @@ const MyDonation = () => {
 
   return (
     <div className="my-12 p-4">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>G&G || MY DONATION</title>
+      </Helmet>
       {loading && (
-        <div className="w-full min-h-28 flex items-center justify-center">
+        <div className="my-20 w-full min-h-28 flex items-center justify-center">
           <Vortex
             visible={true}
             height="180"

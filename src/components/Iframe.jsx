@@ -3,7 +3,7 @@ import thumbnail from "../assets/thumbnail.PNG";
 const Iframe = () => {
   return (
     <div className="my-6 p-4">
-      <h3 className="text-3xl font-bold text-primary mb-6">
+      <h3 className="text-3xl font-bold text-primary mb-12 text-center">
         How Give&Grow Works
       </h3>
       <div className="w-full mx-auto h-[500px] rounded-xl relative group">

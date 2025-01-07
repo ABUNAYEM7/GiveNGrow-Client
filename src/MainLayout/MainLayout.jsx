@@ -5,10 +5,10 @@ import Footer from '../components/Footer'
 const MainLayout = () => {
   return (
     <div className='max-w-screen-2xl mx-auto'>
-      <header  className='w-full'>
+      <header>
         <Navbar/>
       </header>
-      <main className='max-w-screen-xl min-h-[550px] mx-auto'>
+      <main className='min-h-[550px] '>
         <Outlet/>
       </main>
       <footer className='w-full'> 

@@ -7,15 +7,15 @@ const HowToUse = () => {
   return (
     <div className='my-12 p-4'>
       {/* info-container */}
-      <div className='space-y-3'>
+      <div className='space-y-3 text-center'>
         <p className='text-lg font-medium text-secondary'>So you want to grow with us ?</p>
         <h3 className='text-2xl md:text-3xl font-bold'>
           Here's How To Use Give & Grow
         </h3>
-        <div className='divider w-11/12 md:w-2/3'></div>
+        <div className='divider w-11/12 md:w-2/3 mx-auto'></div>
         <p className='text-base text-primary'>We recommend the following process:</p>
       </div>
-      <div className='mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center'>
+      <div className='mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 justify-items-center'>
         <div className="flex flex-col items-center justify-center gap-3 ">
           <Lottie className="w-52 h-52 " animationData={bookmarkAnimation}/>
           <div className="text-center space-y-2">

@@ -184,7 +184,7 @@ const UpdateMyCampaign = () => {
   return (
     <div>
       {loading ? (
-        <div className="w-full min-h-28 flex items-center justify-center">
+        <div className="my-20 w-full min-h-28 flex items-center justify-center">
           <Vortex
             visible={true}
             height="180"
