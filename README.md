@@ -115,28 +115,23 @@ Here we mention the user manual and describe how people can use our services and
   }
 }
 
-## How to Run Locally
+## How to run in local machine
 
 1. **Clone the repository:**
 
-```bash
 git clone "https://github.com/ABUNAYEM7/GiveNGrow-Client.git"
 Navigate to the project folder:
 
-
-Copy code
 cd give-n-grow
 Install dependencies:
 
-
-Copy code
 npm install
 Set up your Firebase credentials:
 
 Create a .env file in the root directory of the project and add the following environment variables:
 
+## Environment Variables
 
-Copy code
 VITE_apiKey=AIzaSyAbNB_rAU0jgZvErKKinDDhyYA3DbJZL58
 VITE_authDomain=give-n-grow.firebaseapp.com
 VITE_projectId=give-n-grow
@@ -148,4 +143,4 @@ Run the development server:
 
 Copy code
 npm run dev
-Open the browser and go to "http://localhost:3000 to see the website".
+Open the browser and go to "http://localhost:3000".
