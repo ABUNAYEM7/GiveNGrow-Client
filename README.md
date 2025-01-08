@@ -58,6 +58,13 @@ In this section, we display the process of our campaign and how much we are famo
 ### How To Use Give & Grow
 Here we mention the user manual and describe how people can use our services and how they can achieve their dreams.
 
+## How to Run Locally
+
+1. **Clone the repository:**
+
+```bash
+git clone "https://github.com/ABUNAYEM7/GiveNGrow-Client.git"
+
 
 ## Dependencies
 
@@ -115,9 +122,3 @@ Here we mention the user manual and describe how people can use our services and
   }
 }
 
-## How to Run Locally
-
-1. **Clone the repository:**
-
-```bash
-git clone "https://github.com/ABUNAYEM7/GiveNGrow-Client.git"
