@@ -75,14 +75,14 @@ Create a .env file in the root directory of the project and add the following en
 
 ## Environment Variables
 
-VITE_apiKey=AIzaSyAbNB_rAU0jgZvErKKinDDhyYA3DbJZL58
-VITE_authDomain=give-n-grow.firebaseapp.com
-VITE_projectId=give-n-grow
-VITE_storageBucket=give-n-grow.firebasestorage.app
-VITE_messagingSenderId=979195091843
-VITE_appId=1:979195091843:web:2862e35d4f57d39a7474b6
-Run the development server:
+- `VITE_apiKey`: `AIzaSyAbNB_rAU0jgZvErKKinDDhyYA3DbJZL58`
+- `VITE_authDomain`: `give-n-grow.firebaseapp.com`
+- `VITE_projectId`: `give-n-grow`
+- `VITE_storageBucket`: `give-n-grow.firebasestorage.app`
+- `VITE_messagingSenderId`: `979195091843`
+- `VITE_appId`: `1:979195091843:web:2862e35d4f57d39a7474b6`
 
+Run the development server:
 
 Copy code
 npm run dev
